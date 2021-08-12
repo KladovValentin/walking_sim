@@ -1,3 +1,4 @@
+//here all used libraries are declared and structs. All .cpp and .h files have to include it (can be done not directly)
 #pragma once
 
 #include <fstream> 
@@ -24,5 +25,3 @@ struct point {
 struct vect {
     pair<point, point> vc;
 };
-
-//random functions
