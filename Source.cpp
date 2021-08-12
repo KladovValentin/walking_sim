@@ -20,6 +20,7 @@ int main() {
     window1.setFramerateLimit(60);
     window1.setPosition(sf::Vector2i(10, 10));
 
+    //creating rooms 
     vector<Room> rooms;
     rooms.push_back(Room({ {0,0},{800,0},{800,800},{0,800} }));
     rooms.push_back(Room({ {10,10},{110,10},{110,110},{10,110} }));
@@ -57,6 +58,7 @@ int main() {
 
     walls[1].makeDoorway(35,30);
 
+    //create objects
     Door door({ 110,60 });
     sf::Texture doorTexture;
     doorTexture.loadFromFile("images/door.png");
@@ -66,12 +68,14 @@ int main() {
     door.unlock();
     //door.open();
 
+    //create subjects
     Subject hero({ 140,40 }, 100);
     sf::Texture heroTexture;
     heroTexture.loadFromFile("images/sword2.png");
     hero.sprite.setTexture(heroTexture);
     hero.bindSpritePosition();
 
+    //some usefull in a loop variables
     int currentRoomMouse = 1;
     int currentRoomHero = 1;
     sf::Event prevEvent;
@@ -99,6 +103,8 @@ int main() {
             }
         }
 
+        
+        //_______________event or keyboard signals section__________________
         sf::Event event;
         while (window.pollEvent(event))
         {
@@ -142,14 +148,17 @@ int main() {
             hero.moves(move, dt);
         }
 
+        //_______________random functions section (bumping for example)__________________
         //checkWalls();
         for (size_t i = 0; i < rooms[currentRoomHero].walls.size(); i++) {
             if (rooms[currentRoomHero].walls[i] != NULL) {
                 hero.checkBlockByWall(rooms[currentRoomHero].walls[i], move);
             }
         }
+        //check door and later other objects
         hero.checkBlockByObject(bordersOfRectangle(door.position,door.sprite.getLocalBounds().width,door.sprite.getLocalBounds().height,door.direction));
 
+        //coldown for door opening, maybe will make it part of the class door
         sf::Time coolDown = eclock.getElapsedTime();
         etime = coolDown.asSeconds();
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::E) && (etime>1)) {
@@ -176,6 +185,7 @@ int main() {
         else
             window1.close();*/
 
+        //_______________drawing section__________________
         prevEvent = event;
         window.clear();
         for (size_t j = 0; j < walls.size(); j++) {
