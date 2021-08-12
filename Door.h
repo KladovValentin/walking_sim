@@ -12,6 +12,8 @@ public:
     bool isLocked() { return locked; }
     bool isOpened() { return opened; }
     void unlock() { locked = false; }
+    
+    //rotate with rotation point at the centre of small side, maybe should replace it to the corner to look more naturally
     void rotateDoor(double angle);
     void open() {
         if (!isLocked()) {
